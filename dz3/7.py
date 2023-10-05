@@ -7,6 +7,6 @@ for i in text:
     if a > c:
         c = a
         b = i
-    
+
 
 print("Самое длинное: " + P + ", самое частое: " + b)
