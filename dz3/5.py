@@ -1,9 +1,11 @@
-n = int(input())
+def f(lst):
+    itog = []
+    for i in lst:
+        a = int(i)
+        itog.append(a)
+    y = sum(itog) / len(itog)
+    print(y)
 
 
-def progress(n):
-    s = ((n - (n - 1) + n) / 2) * n
-    print(s)
-
-
-progress(n)
+lst = input().split()
+f(lst)
