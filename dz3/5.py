@@ -1,11 +1,5 @@
+lst = [1, 2, 3, 4, 5, 6, 7]
 def f(lst):
-    itog = []
-    for i in lst:
-        a = int(i)
-        itog.append(a)
-    y = sum(itog) / len(itog)
-    print(y)
+    return sum(lst) / len(lst)
 
-
-lst = input().split()
-f(lst)
+print(f(lst))
