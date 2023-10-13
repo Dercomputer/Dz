@@ -1,12 +1,11 @@
-text = input()
-text = text.split()
-P = max(text, key=len)
-c = 0
-for i in text:
-    a = text.count(i)
-    if a > c:
-        c = a
-        b = i
+from collections import Counter
+
+text = input().split()
+def pabtext(text):
+    P = max(text, key=len)
+    c = max(Counter(text))  # create dict, elements - key and count - value
+    print("Самое длинное: " + P + ", самое частое: " + c)
 
 
-print("Самое длинное: " + P + ", самое частое: " + b)
+pabtext(text)
+
