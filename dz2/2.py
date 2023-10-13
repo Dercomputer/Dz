@@ -1,9 +1,15 @@
-spicok = []
-a = input("Вводите числа по одному и без пробелов(в начале и конце). "
-          "Для перехода к результату введите пустую строку: ")
-while a:
-    spicok.append(a)
-    a = input("Вводите числа по одному и без пробелов(в начале и конце). "
-              "Для перехода к результату введите пустую строку: ")
-spicok.sort(reverse=True)
-print("".join(spicok))
+def maxnumber(a):
+    a.sort(key=lambda x: x * 3, reverse=True)
+    result = ''.join(a)
+    result = int(result)
+    return result
+
+a = []
+while True:
+    number = input("Введите число: ")
+    if number == '':
+        break
+    a.append((number))
+
+max_number = maxnumber(a)
+print(max_number)
