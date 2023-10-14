@@ -1,4 +1,4 @@
-def funk(x):
+def vvod(x):
     lst = []
     while x:
         lst.append(x)
