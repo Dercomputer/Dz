@@ -1,17 +1,7 @@
-x = input("Ввод: ")
-list = []
+from collections import Counter
+from dz import funk
 
-
-def funk(x):
-    while x:
-        list.append(x)
-        x = input("Ввод: ")
-    lst = []
-    print("Элемент | Частота")
-    for t in list:
-        if t not in lst:
-            print(t, "|", list.count(t))
-            lst.append(t)
-
-
-funk(x)
+els = funk(input())
+ans = Counter(els)
+print('Элемент | Частота')
+print(*[f'{i} | {ans[i]}' for i in ans], sep='\n')
