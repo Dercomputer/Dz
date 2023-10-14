@@ -7,4 +7,4 @@ def vvod(x):
 
 if __name__ == "__main__":
     x = input("Ввод: ")
-    print(funk(x))
+    print(vvod(x))
