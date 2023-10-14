@@ -8,7 +8,5 @@ def prost(number):
 
 
 number = int(input())
-if prost(number):
-    print("Простое число")
-else:
-    print("Не простое число")
+print(prost(number))
+  
