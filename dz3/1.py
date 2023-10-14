@@ -1,12 +1,10 @@
-x = input("Ввод: ")
-list = []
-
-
 def funk(x):
+    lst = []
     while x:
-        list.append(x)
-        x = input("Ввод: ")
-    return list
+        lst.append(x)
+        x = input()
+    return lst
 
-
-print(funk(x))
+if __name__ == "__main__":
+    x = input("Ввод: ")
+    print(funk(x))
