@@ -1,13 +1,9 @@
 def fib(n):
-    a = 1
-    b = 1
-    for i in range(1, n+1):
-        if i in [1, 2]:
-            print(a, end=" ")
-        elif i > 2:
-            a, b = b, a+b
-            print(b, end=" ")
+    a = [0, 1, 1]
+    for _ in range(n - 3):
+        a.append(a[-2] + a[-1])
+    return a[:n]
 
 
 n = int(input("Число: "))
-fib(n)
+print(fib(n))
