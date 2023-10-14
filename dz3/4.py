@@ -1,7 +1,7 @@
 from collections import Counter
-from dz import funk
+from dz import vvod
 
-els = funk(input())
+els = vvod(input())
 ans = Counter(els)
 print('Элемент | Частота')
 print(*[f'{i} | {ans[i]}' for i in ans], sep='\n')
