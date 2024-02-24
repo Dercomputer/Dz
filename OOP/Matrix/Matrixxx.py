@@ -16,16 +16,15 @@ class Matrix:
         if self.lines < 0 or self.pillars < 0:
             raise ValueError
         for i in range(self.lines):
-            self.elements.append(list(map(float, input(f"string {i + 1}: ").split())))
+            self.elements.append(list(map(float, input(f"string: ").split())))
             if len(self.elements[i]) != self.pillars:
                 raise ValueError("НЕКОРРЕКТНЫЙ ВВОД")
-            for j in range(self.pillars):
-                if self.elements[i][j] % 1 == 0:
-                    self.elements[i][j] = int(self.elements[i][j])
 
 
 class Matrix3x3(Matrix):
-    pass
+
+    def determinant(self):
+        pass
 
 
 if __name__ == "__main__":
