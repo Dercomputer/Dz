@@ -59,6 +59,3 @@ def test_input(mocker):
     mocker.patch('builtins.input', side_effects=['1 1 1 1', '2 2 2', '2 2 2'])
     matrix = Matrix3x3()
     matrix.input_matrix()
-
-
-
