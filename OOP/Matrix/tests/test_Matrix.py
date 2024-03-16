@@ -306,6 +306,7 @@ def test_eq():
 )
 def test_add_3x3(elements1, elements2, result):
     assert Matrix3x3(elements1) + Matrix3x3(elements2) == Matrix3x3(result)
+    assert isinstance(Matrix3x3(result), Matrix3x3)
 
 
 @pytest.mark.parametrize(
@@ -317,6 +318,7 @@ def test_add_3x3(elements1, elements2, result):
 )
 def test_sub_3x3(elements1, elements2, result):
     assert Matrix3x3(elements1) - Matrix3x3(elements2) == Matrix3x3(result)
+    assert isinstance(Matrix3x3(result), Matrix3x3)
 
 
 def test_eq_3x3():
