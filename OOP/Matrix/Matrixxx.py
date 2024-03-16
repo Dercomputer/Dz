@@ -6,15 +6,29 @@ class Matrix:
         self.lines = lines
         self.pillars = pillars
         self.elements = elements
-        self.__correct()
+        self._correctinit()
 
     def __correct(self):
-        if self.lines != 0 and self.pillars == 0:
-            raise ValueError("Так матрицу никто не вводит")
+        self._correctnumber()
+        self._correctelements()
+
+    def _correctnumber(self):
+        if self.lines != 0 and self.pillars == 0 or self.lines == 0 and self.pillars != 0:
+            raise ValueError("Количество столбцов или строк не может быть нулевым")
+        if self.lines < 0 or self.pillars < 0:
+            raise ValueError("Число строк или столбцов не может быть отрицательным")
+
+    def _correctelements(self):
         for i in range(len(self.elements)):
             if len(self.elements[i]) != self.pillars:
-                raise ValueError("Так матрицу никто не вводит")
+                raise ValueError("Число элементов в строке должно совпадать с числом столбцов")
 
+    def _correctinit(self):
+        for i in range(len(self.elements)):
+            for j in range(len(self.elements[i])):
+                if isinstance(self.elements[i][j], int) is False and isinstance(self.elements[i][j], float) is False:
+                    raise ValueError("В матрицу подают только числа")
+        self.__correct()
 
     def __str__(self):
         output = ''
@@ -26,8 +40,7 @@ class Matrix:
         while True:
             try:
                 self.lines, self.pillars = map(int, input("Введите количество строк и столбцов: ").split())
-                if self.lines != 0 and self.pillars == 0:
-                    continue
+                self._correctnumber()
             except ValueError:
                 continue
             else:
@@ -37,53 +50,61 @@ class Matrix:
         self.elements = []
         for i in range(self.lines):
             self.elements.append(list(map(float, input(f"string: ").split())))
-            self.__correct()
+            self._correctelements()
+        if len(self.elements) != self.lines and self.elements != [[]]:
+            raise ValueError("Число элементов больше числа строк")
 
     def input_matrix(self):
         self._size_matrix()
         self._matrix_elements()
 
+    def __plus(self, other):
+        new_elements = []
+        for i in range(self.lines):
+            new_lines = []
+            for j in range(self.pillars):
+                new_lines.append(self.elements[i][j] + other.elements[i][j])
+            new_elements.append(new_lines)
+        return Matrix(self.lines, self.pillars, new_elements)
+
     def __add__(self, other):
-        if type(other) is Matrix:
+        if isinstance(other, Matrix):
             if self.pillars == other.pillars and self.lines == other.lines:
-                new_elements = []
-                for i in range(self.lines):
-                    new_lines = []
-                    for j in range(self.pillars):
-                        new_lines.append(self.elements[i][j] + other.elements[i][j])
-                    new_elements.append(new_lines)
-                return Matrix(self.lines, self.pillars, new_elements)
+                return self.__plus(other)
             else:
                 raise ValueError("Нельзя складывать разные по форме матрицы")
         else:
             raise ValueError("Это нельзя складывать")
 
+    def __minus(self, other):
+        new_elements = []
+        for i in range(self.lines):
+            new_lines = []
+            for j in range(self.pillars):
+                new_lines.append(self.elements[i][j] - other.elements[i][j])
+            new_elements.append(new_lines)
+        return Matrix(self.lines, self.pillars, new_elements)
+
     def __sub__(self, other):
-        if type(other) is Matrix:
+        if isinstance(other, Matrix):
             if self.pillars == other.pillars and self.lines == other.lines:
-                new_elements = []
-                for i in range(self.lines):
-                    new_lines = []
-                    for j in range(self.pillars):
-                        new_lines.append(self.elements[i][j] - other.elements[i][j])
-                    new_elements.append(new_lines)
-                return Matrix(self.lines, self.pillars, new_elements)
+                return self.__minus(other)
             else:
                 raise ValueError("Нельзя вычитать разные по форме матрицы")
         else:
             raise ValueError("Это нельзя вычитать")
 
-    def __mul__(self, other):
-        return 44
-
     def __eq__(self, other):
-        if type(other) is Matrix:
-            if self.lines == other.lines and self.pillars == other.pillars and self.elements == other.elements:
-                return True
-            else:
-                return False
+        if isinstance(other, Matrix):
+            return self.elements == other.elements
         else:
             raise ValueError("Нельзя сравнить")
+
+    def __ne__(self, other):
+        if isinstance(other, Matrix):
+            return self.elements != other.elements
+        else:
+            raise ValueError("Нельзя сравнивать")
 
 
 class Matrix3x3(Matrix):
@@ -92,11 +113,14 @@ class Matrix3x3(Matrix):
         if elements is None:
             elements = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         super().__init__(3, 3, elements)
-        if len(self.elements) != self.lines:
-            raise ValueError("Нельзя так вводить матрицу 3 на 3")
 
     def input_matrix(self):
-        super()._matrix_elements()
+        self.elements = []
+        for i in range(self.lines):
+            self.elements.append(list(map(float, input(f"string: ").split())))
+            self._correctelements()
+        if len(self.elements) != self.lines and self.elements != [[]]:
+            raise ValueError("Число элементов больше числа строк")
 
     def determinant(self):
         return self.elements[0][0] * self.elements[1][1] * self.elements[2][2] + self.elements[0][1] \
@@ -109,12 +133,11 @@ class Matrix3x3(Matrix):
 if __name__ == "__main__":
     # n1 = Matrix(2, 2, [[1, 1], [1, 1]])
     # n2 = Matrix(2, 2, [[1, 1], [1, 1]])
-    # n3 = 1
-    # print(n1 == n3)
-    # n3 = 1
-    # print(type(n1 + n2))
-    # p = Matrix3x3()
-    # p.input_matrix()
-    # print(p.determinant())
-    m = Matrix3x3([[1, 1, 1], [1, 2, 3], [3, 3, 3], [1, 1, 1]])
-    print(m.elements, m.lines, m.pillars, len(m.elements))
+    # n3 = Matrix(1, 1, [[1]])
+    # print(n1 - n2)
+    m = Matrix3x3()
+    m.input_matrix()
+    print(m)
+    # print(p.elements)
+    # m = Matrix()
+    # m.input_matrix()
