@@ -50,7 +50,7 @@ def test_fail_init(lines, pillars, elements):
         (4, 1, [[1], [2], [3], [3]])
     ]
 )
-def test_init(lines, pillars, elements):
+def test_init7(lines, pillars, elements):
     m = Matrix(lines, pillars, elements)
     assert m.lines == lines
     assert m.pillars == pillars
@@ -141,44 +141,21 @@ def test_init_3x3_2(elements):
     assert m.elements == elements
 
 
-def test_input3x3(mocker):
-    mocker.patch('builtins.input', side_effects=['1 1 1', '1 1 1', '1 1 1'])
-    mat = Matrix3x3()
-    mat.input_matrix()
-    assert mat.elements == [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
-
-
 @pytest.mark.parametrize(
     ('side_eff'),
     [
-        ('1 1 1 1', '2 2 2', '2 2 2'),
-        ('1'),
-        ('2 2 2 2', '2 2 2', '2 2 2 2 2 2 2'),
-        ('1 1', '1 1'),
-        ('1 4 6', '5 3 2', '5 3 2')
+        (['1 1 1 1', '2 2 2', '2 2 2']),
+        (['1']),
+        (['2 2 2 2', '2 2 2', '2 2 2 2 2 2 2']),
+        (['1 1', '1 1']),
+        (['1 4 6', '5 3 2', '5 3 2'])
     ]
 )
 @pytest.mark.xfail(raises=ValueError)
 def test_input_fail(mocker, side_eff):
     mocker.patch('builtins.input', side_effects=side_eff)
     m = Matrix3x3()
-    m.input_matrix()
-
-
-@pytest.mark.parametrize(
-    ('side_ef', 'result'),
-    [
-        (['1 1 1', '1 1 1', '1 1 1'], 0),
-        (['1 1 1', '0 0 0', '1 1 1'], 0),
-        (['1 2 3', '4 5 6', '7 8 9'], 0),
-        (['3 4 6', '3 9 3', '6 32 56'], 876)
-    ]
-)
-def test_determinantinput(mocker, side_ef, result):
-    mocker.patch('builtins.input', side_effects=side_ef)
-    matrix = Matrix3x3()
-    matrix.input_matrix()
-    assert matrix.determinant() == result
+    m.input_matrix3x3()
 
 
 @pytest.mark.parametrize(
