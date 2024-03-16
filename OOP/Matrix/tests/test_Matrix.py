@@ -188,7 +188,8 @@ def test_determinant(elements, result):
     ]
 )
 def test_add(lines, pillars, elements1, elements2, result):
-    assert Matrix(lines, pillars, elements1) + Matrix(lines, pillars, elements2) == Matrix(lines, pillars, result)
+    r = Matrix(lines, pillars, result)
+    assert Matrix(lines, pillars, elements1) + Matrix(lines, pillars, elements2) == r
 
 
 @pytest.mark.parametrize(
@@ -206,7 +207,8 @@ def test_add(lines, pillars, elements1, elements2, result):
     ]
 )
 def test_sub(lines, pillars, elements1, elements2, result):
-    assert Matrix(lines, pillars, elements1) - Matrix(lines, pillars, elements2) == Matrix(lines, pillars, result)
+    r = Matrix(lines, pillars, result)
+    assert Matrix(lines, pillars, elements1) - Matrix(lines, pillars, elements2) == r
 
 
 @pytest.mark.parametrize(
@@ -317,8 +319,9 @@ def test_add_3x3(elements1, elements2, result):
     ]
 )
 def test_sub_3x3(elements1, elements2, result):
-    assert Matrix3x3(elements1) - Matrix3x3(elements2) == Matrix3x3(result)
-    assert isinstance(Matrix3x3(result), Matrix3x3)
+    r = Matrix3x3(result)
+    assert Matrix3x3(elements1) - Matrix3x3(elements2) == r
+    assert isinstance(r, Matrix3x3)
 
 
 def test_eq_3x3():
