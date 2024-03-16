@@ -65,7 +65,10 @@ class Matrix:
             for j in range(self.pillars):
                 new_lines.append(self.elements[i][j] + other.elements[i][j])
             new_elements.append(new_lines)
-        return Matrix(self.lines, self.pillars, new_elements)
+        if isinstance(self, Matrix):
+            return Matrix(self.lines, self.pillars, new_elements)
+        elif isinstance(self, Matrix3x3):
+            return Matrix3x3(new_elements)
 
     def __add__(self, other):
         if isinstance(other, Matrix):
@@ -83,7 +86,10 @@ class Matrix:
             for j in range(self.pillars):
                 new_lines.append(self.elements[i][j] - other.elements[i][j])
             new_elements.append(new_lines)
-        return Matrix(self.lines, self.pillars, new_elements)
+        if isinstance(self, Matrix):
+            return Matrix(self.lines, self.pillars, new_elements)
+        elif isinstance(self, Matrix3x3):
+            return Matrix3x3(new_elements)
 
     def __sub__(self, other):
         if isinstance(other, Matrix):
@@ -104,7 +110,7 @@ class Matrix:
         if isinstance(other, Matrix):
             return self.elements != other.elements
         else:
-            raise ValueError("Нельзя сравнивать")
+            raise ValueError("Нельзя сравнить")
 
 
 class Matrix3x3(Matrix):
@@ -114,13 +120,8 @@ class Matrix3x3(Matrix):
             elements = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         super().__init__(3, 3, elements)
 
-    def input_matrix(self):
-        self.elements = []
-        for i in range(self.lines):
-            self.elements.append(list(map(float, input(f"string: ").split())))
-            self._correctelements()
-        if len(self.elements) != self.lines and self.elements != [[]]:
-            raise ValueError("Число элементов больше числа строк")
+    def input_matrix3x3(self):
+        super()._matrix_elements()
 
     def determinant(self):
         return self.elements[0][0] * self.elements[1][1] * self.elements[2][2] + self.elements[0][1] \
@@ -131,13 +132,13 @@ class Matrix3x3(Matrix):
 
 
 if __name__ == "__main__":
-    # n1 = Matrix(2, 2, [[1, 1], [1, 1]])
-    # n2 = Matrix(2, 2, [[1, 1], [1, 1]])
-    # n3 = Matrix(1, 1, [[1]])
-    # print(n1 - n2)
+    n1 = Matrix(2, 2, [[1, 1], [1, 1]])
+    n2 = Matrix(2, 2, [[1, 1], [1, 1]])
+    n3 = Matrix(1, 1, [[1]])
+    print(n1 - n2)
     m = Matrix3x3()
-    m.input_matrix()
-    print(m)
+    m.input_matrix3x3()
+    print(m.elements)
     # print(p.elements)
     # m = Matrix()
     # m.input_matrix()
