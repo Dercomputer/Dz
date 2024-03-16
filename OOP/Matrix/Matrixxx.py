@@ -65,10 +65,10 @@ class Matrix:
             for j in range(self.pillars):
                 new_lines.append(self.elements[i][j] + other.elements[i][j])
             new_elements.append(new_lines)
-        if isinstance(self, Matrix):
-            return Matrix(self.lines, self.pillars, new_elements)
-        elif isinstance(self, Matrix3x3):
+        if isinstance(self, Matrix3x3):
             return Matrix3x3(new_elements)
+        elif isinstance(self, Matrix):
+            return Matrix(self.lines, self.pillars, new_elements)
 
     def __add__(self, other):
         if isinstance(other, Matrix):
@@ -86,10 +86,10 @@ class Matrix:
             for j in range(self.pillars):
                 new_lines.append(self.elements[i][j] - other.elements[i][j])
             new_elements.append(new_lines)
-        if isinstance(self, Matrix):
-            return Matrix(self.lines, self.pillars, new_elements)
-        elif isinstance(self, Matrix3x3):
+        if isinstance(self, Matrix3x3):
             return Matrix3x3(new_elements)
+        elif isinstance(self, Matrix):
+            return Matrix(self.lines, self.pillars, new_elements)
 
     def __sub__(self, other):
         if isinstance(other, Matrix):
@@ -135,10 +135,5 @@ if __name__ == "__main__":
     n1 = Matrix(2, 2, [[1, 1], [1, 1]])
     n2 = Matrix(2, 2, [[1, 1], [1, 1]])
     n3 = Matrix(1, 1, [[1]])
-    print(n1 - n2)
-    m = Matrix3x3()
-    m.input_matrix3x3()
-    print(m.elements)
-    # print(p.elements)
-    # m = Matrix()
-    # m.input_matrix()
+    print(type(n1 - n2))
+    
